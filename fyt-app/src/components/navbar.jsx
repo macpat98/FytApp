@@ -30,6 +30,12 @@ class Navbar extends Component {
               <li><a className="dropdown-item" href="#">Something else here</a></li>
             </ul>
           </li>
+          <li className="nav-item">
+              <a className="nav-link" href="#">Sign in</a>
+          </li>
+          <li className="nav-item">
+              <a className="nav-link" href="#">Sign up</a>
+          </li>
         </ul>
         <form>
           <input className="form-control" type="text" placeholder="Search" aria-label="Search" />
