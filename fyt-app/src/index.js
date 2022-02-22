@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import bootstrap from 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css'
-import Navbar from './components/navbar'
+
 
 ReactDOM.render(
   <React.StrictMode>
     <App />
-    <Navbar />
   </React.StrictMode>,
   document.getElementById('root')
 );
