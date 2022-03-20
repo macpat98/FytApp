@@ -31,19 +31,22 @@ class SignUp extends Component {
     switch (fieldName) {
       case "userName":
         userNameValid = value.length >= 6;
-        fieldValidationErrors.userName = userNameValid ? "" : " is invalid";
+        fieldValidationErrors.userName = userNameValid
+          ? ""
+          : "Username is invalid!";
         break;
       case "email":
         emailValid = new RegExp(
           /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/,
           "i"
         ).test(value);
-        fieldValidationErrors.email = emailValid ? "" : " is invalid";
-        console.log("Email valid?", emailValid);
+        fieldValidationErrors.email = emailValid ? "" : "Email is invalid!";
         break;
       case "password":
         passwordValid = value.length >= 6;
-        fieldValidationErrors.password = passwordValid ? "" : " is invalid";
+        fieldValidationErrors.password = passwordValid
+          ? ""
+          : "Password is invalid!";
         break;
       default:
         break;
@@ -68,8 +71,8 @@ class SignUp extends Component {
     });
   }
 
-  isInvalidClass() {
-    return !this.state.isUserNameValid ? "is-invalid" : "";
+  isInvalidClass(error) {
+    return error.length === 0 ? "" : "is-invalid";
   }
 
   render() {
@@ -83,33 +86,45 @@ class SignUp extends Component {
           height="72"
         />
         <h1 className="h3 mb-3 font-weight-normal">Sign up!</h1>
+        <div className="panel panel-default">
+          <FormErrors formErrors={this.state.formErrors} />
+        </div>
+        <label htmlFor="inputUserName">Username</label>
         <input
           name="userName"
           type="text"
           id="inputUserName"
-          className={`form-control ${this.isInvalidClass()}`}
+          className={`form-control ${this.isInvalidClass(
+            this.state.formErrors.userName
+          )}`}
           placeholder="Username"
           required="{true}"
           autoFocus=""
           value={this.state.userName}
           onChange={(userName) => this.handleUserInput(userName)}
         />
+        <label htmlFor="inputEmail">Email</label>
         <input
           name="email"
           type="email"
           id="inputEmail"
-          className="form-control"
+          className={`form-control ${this.isInvalidClass(
+            this.state.formErrors.email
+          )}`}
           placeholder="Email address"
           required="{true}"
           autoFocus=""
           value={this.state.email}
           onChange={(email) => this.handleUserInput(email)}
         />
+        <label htmlFor="inputPassword">Password</label>
         <input
           name="password"
           type="password"
           id="inputPassword"
-          className="form-control"
+          className={`form-control ${this.isInvalidClass(
+            this.state.formErrors.password
+          )}`}
           placeholder="Password"
           required="{true}"
           value={this.state.password}
@@ -126,7 +141,6 @@ class SignUp extends Component {
           Create Your Account
         </button>
         <p className="mt-5 mb-3 text-muted">© fyt.com</p>
-        <FormErrors formErrors={this.state.formErrors} />
       </form>
     );
   }
