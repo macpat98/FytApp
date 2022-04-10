@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import bootstrap from 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css'
-import SignUp from './components/signup';
+import SignUp from './components/signUp/signup';
 
 
 ReactDOM.render(

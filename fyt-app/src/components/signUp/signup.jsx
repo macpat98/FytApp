@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import FormErrors from "./formErrors";
+import FormErrors from "../formErrors";
 import "./signup.css";
+import { auth } from "../firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 class SignUp extends Component {
   state = {
@@ -21,7 +23,6 @@ class SignUp extends Component {
       this.validateField(name, value);
     });
   }
-  //e.preventDefault();
   validateField(fieldName, value) {
     let fieldValidationErrors = this.state.formErrors;
     let userNameValid = this.state.isUserNameValid;
@@ -71,13 +72,33 @@ class SignUp extends Component {
     });
   }
 
+  registerUser(e) {
+    e.preventDefault();
+    if (this.state.isFormValid) {
+      createUserWithEmailAndPassword(
+        auth,
+        this.state.email,
+        this.state.password
+      )
+        .then((res) => {
+          console.log(res.user);
+          alert("User was registered!");
+        })
+        .catch((err) => console.log("Error: " + err));
+    } else console.log("??");
+  }
+
   isInvalidClass(error) {
     return error.length === 0 ? "" : "is-invalid";
   }
 
   render() {
     return (
-      <form className="form-signup form-group">
+      <form
+        onSubmit={(e) => this.registerUser(e)}
+        name="registration-form"
+        className="form-signup form-group"
+      >
         <img
           className="mb-4"
           src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg"
@@ -133,9 +154,6 @@ class SignUp extends Component {
         <button
           className="btn btn-lg btn-primary btn-block mt-3"
           type="submit"
-          //</form>onClick={
-          //(e) => this.checkIfPasswordConfirmed(e)
-          //}
           disabled={!this.state.isFormValid}
         >
           Create Your Account
